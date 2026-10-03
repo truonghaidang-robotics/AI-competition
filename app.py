@@ -9,6 +9,7 @@ load_dotenv()
 COZE_API_KEY = os.getenv("COZE_API_KEY")
 COZE_WORKFLOW_ID = os.getenv("COZE_WORKFLOW_ID")
 #hubzz was here
+#xiao haiwas hêre
 # ---------------- CONFIG TRANG WEB ----------------
 st.set_page_config(
     page_title="EchoCommerce - KOC Automatic Marketing Studio",
