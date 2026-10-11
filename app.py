@@ -10,6 +10,7 @@ load_dotenv()
 COZE_API_KEY = os.getenv("COZE_API_KEY")
 COZE_WORKFLOW_ID = os.getenv("COZE_WORKFLOW_ID")
 #hubzz was here
+
 ASSETS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets")
 
 
@@ -38,6 +39,10 @@ def heading(title, ic_name):
 
 
 # ---------------- SITE CONFIG ----------------
+=======
+#xiao haiwas hêre
+# ---------------- CONFIG TRANG WEB ----------------
+>>>>>>> b5b3a3ab09a2fa36de441865f7397554bccbcdbf
 st.set_page_config(
     page_title="EchoCommerce - KOC Automatic Marketing Studio",
     layout="wide",
