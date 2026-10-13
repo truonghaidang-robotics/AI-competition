@@ -866,6 +866,9 @@ T = {
         "info_no_video": "No video_url data from Coze yet.",
         "err_workflow": "Workflow error: ",
         "err_api": "API connection error: ",
+        "debug_label": "Debug",
+        "debug_toggle": "Show raw Coze response",
+        "debug_raw": "Raw response from the Coze Workflow",
         "agents": [
             ("Selection Agent", "Data Cleansing"),
             ("Content Agent", "PR Scripting"),
@@ -914,6 +917,9 @@ T = {
         "info_no_video": "暂未收到 Coze 返回的视频数据。",
         "err_workflow": "工作流错误：",
         "err_api": "接口连接错误：",
+        "debug_label": "调试",
+        "debug_toggle": "显示 Coze 原始返回数据",
+        "debug_raw": "Coze 工作流原始返回数据",
         "agents": [
             ("选品 Agent", "数据清洗"),
             ("内容 Agent", "文案撰写"),
@@ -991,6 +997,10 @@ with st.sidebar:
 
   st.divider()
   st.caption(tr("caption"))
+
+  # Raw Coze output, hidden unless explicitly switched on (demo-safe).
+  with st.expander(tr("debug_label"), expanded=False):
+    st.checkbox(tr("debug_toggle"), key="show_debug_json")
 
 
 # ---------------- MAIN SCREEN ----------------
@@ -1107,6 +1117,7 @@ if btn_run:
         st.success(tr("success"))
 
         # ---------------- KHU VỰC HIỂN THỊ KẾT QUẢ ----------------
+        st.session_state["last_raw"] = data
         col_left, col_right = st.columns([1.2, 1])
 
         # CỘT TRÁI: BÀI VIẾT PR KOC
@@ -1201,8 +1212,20 @@ if btn_run:
 
       else:
         st.error(f"{tr('err_workflow')}{result.get('msg')}")
+        st.session_state["last_raw"] = result
     except Exception as e:
       st.error(f"{tr('err_api')}{e}")
+      st.session_state["last_raw"] = {"error": str(e)}
+
+
+# ---------------- DEBUG: RAW COZE RESPONSE (off by default) ----------------
+if st.session_state.get("show_debug_json"):
+  raw = st.session_state.get("last_raw")
+  with st.expander(tr("debug_raw"), expanded=True):
+    if raw:
+      st.json(raw)
+    else:
+      st.caption("—")
 
 
 # ---------------- FOOTER DECOR ----------------

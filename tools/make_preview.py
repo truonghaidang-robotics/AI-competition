@@ -95,6 +95,17 @@ BASE_CSS = """
     background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
     color: #FFF6EE; font-weight: 700; font-size: 0.86rem; }
   .lang-btns span.on { background: linear-gradient(95deg, #E23A00, #FF6A00 48%, #FFA31A); border: none; }
+  .debug-box { border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
+    background: rgba(255,255,255,0.03); padding: 10px 12px; }
+  .debug-check { display: flex; align-items: center; gap: 8px; color: #C6A995;
+    font-size: 0.82rem; font-weight: 600; }
+  .debug-check .box { width: 15px; height: 15px; border-radius: 4px; flex: 0 0 auto;
+    background: linear-gradient(95deg, #E23A00, #FFA31A); color: #fff; font-size: 11px;
+    text-align: center; line-height: 15px; }
+  .jsonbox { background: rgba(22,13,6,0.6); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px; padding: 14px 16px; margin-top: 14px; color: #C9E2A0;
+    font-family: Consolas, monospace; font-size: 0.82rem; white-space: pre-wrap;
+    word-break: break-all; }
 """
 
 
@@ -122,6 +133,11 @@ def page(title, lang, main):
         {rows}
         <hr />
         <p class="side-caption">{d['caption']}</p>
+        <hr />
+        <div class="side-title">{d['debug_label']}</div>
+        <div class="debug-box">
+          <div class="debug-check"><span class="box">&#10003;</span>{d['debug_toggle']}</div>
+        </div>
       </aside>
     """
     return f"""<!doctype html>
@@ -196,6 +212,19 @@ def results(lang):
       <div style="flex:1.2;"><div class="glass-card">{left}</div></div>
       <div style="flex:1;"><div class="glass-card">{right}</div></div>
     </div>
+    <div class="jsonbox">{d['debug_raw']}
+{{
+  "code": 0,
+  "cost": "0",
+  "data": {{
+    "koc_content": "##### &#29190;&#27454;&#26631;&#39064;&#22791;&#36873; ...",
+    "image_url": "https://s.coze.cn/t/TxgUuupftPE/",
+    "video_url": "https://ark-content-generation-cn-beijing.tos-...",
+    "cs_script": "1. &#36827;&#24215;&#33258;&#21160;&#38382;&#20505;..."
+  }},
+  "debug_url": "https://www.coze.cn/work_flow?execute_id=...",
+  "msg": "Success"
+}}</div>
     """,
     )
 
