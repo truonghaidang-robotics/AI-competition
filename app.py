@@ -958,7 +958,7 @@ with st.sidebar:
           "English" if _code == "en" else "中文",
           key=f"lang_{_code}",
           type="primary" if _active else "secondary",
-          use_container_width=True,
+          width="stretch",
       ):
         if st.session_state.lang != _code:
           st.session_state.lang = _code
@@ -1114,108 +1114,137 @@ if btn_run:
         status_text.empty()
         progress_bar.empty()
 
-        st.success(tr("success"))
-
-        # ---------------- KHU VỰC HIỂN THỊ KẾT QUẢ ----------------
+        # Persist the run so it survives re-runs (e.g. switching language).
+        st.session_state["result_mode"] = "ok"
+        st.session_state["result_parsed"] = parsed
+        st.session_state["result_image"] = image_url
+        st.session_state["result_video"] = video_url
         st.session_state["last_raw"] = data
-        col_left, col_right = st.columns([1.2, 1])
-
-        # CỘT TRÁI: BÀI VIẾT PR KOC
-        with col_left:
-          st.markdown("<div class='glass-card'>", unsafe_allow_html=True)
-          st.markdown(
-              "<div class='sec-head'>"
-              + icon("ic_doc", cls="ic-inline")
-              + f"<span class='sec-title'>{tr('results_title')}</span></div>",
-              unsafe_allow_html=True,
-          )
-
-          tab1, tab2, tab3, tab4 = st.tabs([
-              tr("tab_titles"),
-              tr("tab_body"),
-              tr("tab_comment"),
-              tr("tab_copy"),
-          ])
-
-          with tab1:
-            st.markdown(
-                f"<div class='badge-status'>{tr('badge_titles')}</div>",
-                unsafe_allow_html=True,
-            )
-            if parsed["titles"]:
-              for t in parsed["titles"].split("\n"):
-                if t.strip():
-                  st.markdown(
-                      f"<div class='title-pill'>{t.strip()}</div>",
-                      unsafe_allow_html=True,
-                  )
-            else:
-              st.info(tr("info_no_titles"))
-
-          with tab2:
-            st.markdown(
-                f"<div class='badge-status'>{tr('badge_body')}</div>",
-                unsafe_allow_html=True,
-            )
-            st.write(parsed["body"])
-
-          with tab3:
-            st.markdown(
-                f"<div class='badge-status'>{tr('badge_comment')}</div>",
-                unsafe_allow_html=True,
-            )
-            st.write(parsed["comment"])
-
-          with tab4:
-            st.text_area(
-                tr("clean_text_label"),
-                value=parsed["full_clean"],
-                height=350,
-            )
-
-          st.markdown("</div>", unsafe_allow_html=True)
-
-        # CỘT PHẢI: ASSET VISUAL (HIỂN THỊ TRỰC TIẾP TỪ COZE)
-        with col_right:
-          st.markdown("<div class='glass-card'>", unsafe_allow_html=True)
-          st.markdown(
-              "<div class='sec-head'>"
-              + icon("ic_image", cls="ic-inline")
-              + f"<span class='sec-title'>{tr('visual_title')}</span></div>",
-              unsafe_allow_html=True,
-          )
-
-          if image_url:
-            st.image(
-                image_url,
-                caption=tr("img_caption"),
-                use_container_width=True,
-            )
-          else:
-            st.info(tr("info_no_image"))
-
-          st.markdown("---")
-          st.markdown(
-              "<div class='sub-head'>"
-              + icon("ic_video", cls="ic-inline")
-              + f"{tr('video_title')}</div>",
-              unsafe_allow_html=True,
-          )
-
-          if video_url:
-            st.video(video_url)
-            st.caption(tr("video_caption"))
-          else:
-            st.info(tr("info_no_video"))
-
-          st.markdown("</div>", unsafe_allow_html=True)
+        st.session_state["just_ran"] = True
 
       else:
-        st.error(f"{tr('err_workflow')}{result.get('msg')}")
+        st.session_state["result_mode"] = "error"
+        st.session_state["result_msg"] = f"{tr('err_workflow')}{result.get('msg')}"
         st.session_state["last_raw"] = result
+        st.session_state["just_ran"] = True
     except Exception as e:
-      st.error(f"{tr('err_api')}{e}")
+      st.session_state["result_mode"] = "error"
+      st.session_state["result_msg"] = f"{tr('err_api')}{e}"
       st.session_state["last_raw"] = {"error": str(e)}
+      st.session_state["just_ran"] = True
+
+
+# ---------------- KẾT QUẢ (đọc từ session_state để không mất khi rerun) ----------------
+result_mode = st.session_state.get("result_mode")
+
+if result_mode == "ok":
+  parsed = st.session_state.get("result_parsed") or {
+      "titles": "",
+      "body": "",
+      "comment": "",
+      "full_clean": "",
+  }
+  image_url = st.session_state.get("result_image", "")
+  video_url = st.session_state.get("result_video", "")
+
+  if st.session_state.pop("just_ran", False):
+    st.success(tr("success"))
+
+  col_left, col_right = st.columns([1.2, 1])
+
+  # CỘT TRÁI: BÀI VIẾT PR KOC
+  with col_left:
+    st.markdown("<div class='glass-card'>", unsafe_allow_html=True)
+    st.markdown(
+        "<div class='sec-head'>"
+        + icon("ic_doc", cls="ic-inline")
+        + f"<span class='sec-title'>{tr('results_title')}</span></div>",
+        unsafe_allow_html=True,
+    )
+
+    tab1, tab2, tab3, tab4 = st.tabs([
+        tr("tab_titles"),
+        tr("tab_body"),
+        tr("tab_comment"),
+        tr("tab_copy"),
+    ])
+
+    with tab1:
+      st.markdown(
+          f"<div class='badge-status'>{tr('badge_titles')}</div>",
+          unsafe_allow_html=True,
+      )
+      if parsed["titles"]:
+        for _title in parsed["titles"].split("\n"):
+          if _title.strip():
+            st.markdown(
+                f"<div class='title-pill'>{_title.strip()}</div>",
+                unsafe_allow_html=True,
+            )
+      else:
+        st.info(tr("info_no_titles"))
+
+    with tab2:
+      st.markdown(
+          f"<div class='badge-status'>{tr('badge_body')}</div>",
+          unsafe_allow_html=True,
+      )
+      st.write(parsed["body"])
+
+    with tab3:
+      st.markdown(
+          f"<div class='badge-status'>{tr('badge_comment')}</div>",
+          unsafe_allow_html=True,
+      )
+      st.write(parsed["comment"])
+
+    with tab4:
+      st.text_area(
+          tr("clean_text_label"),
+          value=parsed["full_clean"],
+          height=350,
+      )
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
+  # CỘT PHẢI: ASSET VISUAL (HIỂN THỊ TRỰC TIẾP TỪ COZE)
+  with col_right:
+    st.markdown("<div class='glass-card'>", unsafe_allow_html=True)
+    st.markdown(
+        "<div class='sec-head'>"
+        + icon("ic_image", cls="ic-inline")
+        + f"<span class='sec-title'>{tr('visual_title')}</span></div>",
+        unsafe_allow_html=True,
+    )
+
+    if image_url:
+      st.image(
+          image_url,
+          caption=tr("img_caption"),
+          width="stretch",
+      )
+    else:
+      st.info(tr("info_no_image"))
+
+    st.markdown("---")
+    st.markdown(
+        "<div class='sub-head'>"
+        + icon("ic_video", cls="ic-inline")
+        + f"{tr('video_title')}</div>",
+        unsafe_allow_html=True,
+    )
+
+    if video_url:
+      st.video(video_url)
+      st.caption(tr("video_caption"))
+    else:
+      st.info(tr("info_no_video"))
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
+elif result_mode == "error":
+  if st.session_state.pop("just_ran", False):
+    st.error(st.session_state.get("result_msg", ""))
 
 
 # ---------------- DEBUG: RAW COZE RESPONSE (off by default) ----------------
