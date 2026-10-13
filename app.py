@@ -68,7 +68,8 @@ st.markdown(
     }
 
     html, body, [class*="css"] {
-        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-family: 'Plus Jakarta Sans', 'Microsoft YaHei', 'PingFang SC',
+                     'Hiragino Sans GB', 'Noto Sans SC', sans-serif;
     }
 
     /* ---------- App background: layered ember / Taobao orange ---------- */
@@ -108,7 +109,8 @@ st.markdown(
 
     /* ---------- Typography ---------- */
     h1, h2, h3, h4, h5, h6 {
-        font-family: 'Sora', 'Plus Jakarta Sans', sans-serif !important;
+        font-family: 'Sora', 'Plus Jakarta Sans', 'Microsoft YaHei', 'PingFang SC',
+                     'Hiragino Sans GB', 'Noto Sans SC', sans-serif !important;
         color: var(--text) !important;
         letter-spacing: -0.4px;
     }
@@ -154,7 +156,7 @@ st.markdown(
         display: block;
     }
     .hero-name {
-        font-family: 'Sora', sans-serif;
+        font-family: 'Sora', 'Microsoft YaHei', 'PingFang SC', sans-serif;
         font-size: 1.12rem;
         font-weight: 700;
         line-height: 1.25;
@@ -238,7 +240,7 @@ st.markdown(
         z-index: 1;
     }
     .hero-title {
-        font-family: 'Sora', sans-serif;
+        font-family: 'Sora', 'Microsoft YaHei', 'PingFang SC', sans-serif;
         font-size: clamp(2rem, 4.1vw, 3.05rem);
         font-weight: 800;
         line-height: 1.1;
@@ -273,7 +275,7 @@ st.markdown(
         box-shadow: 0 8px 20px -10px rgba(255, 106, 0, 0.95);
     }
     .sec-title {
-        font-family: 'Sora', sans-serif;
+        font-family: 'Sora', 'Microsoft YaHei', 'PingFang SC', sans-serif;
         font-size: 1.16rem;
         font-weight: 700;
         color: var(--text);
@@ -292,7 +294,7 @@ st.markdown(
         align-items: center;
         gap: 10px;
         margin: 16px 0 12px 0;
-        font-family: 'Sora', sans-serif;
+        font-family: 'Sora', 'Microsoft YaHei', 'PingFang SC', sans-serif;
         font-size: 1.02rem;
         font-weight: 700;
         color: var(--text);
@@ -310,6 +312,25 @@ st.markdown(
         border-radius: 6px;
         vertical-align: -4px;
         display: inline-block;
+    }
+
+    /* ---------- Language toggle ---------- */
+    .lang-label {
+        font-family: 'Sora', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 1.7px;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin: 2px 0 8px 0;
+    }
+    section[data-testid="stSidebar"] .stButton > button {
+        min-height: 2.4rem;
+        font-size: 0.86rem;
+        border-radius: 11px;
+    }
+    section[data-testid="stSidebar"] .stButton > button p {
+        font-size: 0.86rem;
     }
 
     /* ---------- Decorative wave motif ---------- */
@@ -341,7 +362,7 @@ st.markdown(
         margin-bottom: 18px;
     }
     .section-label {
-        font-family: 'Sora', sans-serif;
+        font-family: 'Sora', 'Microsoft YaHei', 'PingFang SC', sans-serif;
         font-size: 0.72rem;
         font-weight: 700;
         letter-spacing: 1.7px;
@@ -570,7 +591,7 @@ st.markdown(
         white-space: nowrap;
     }
     .side-title {
-        font-family: 'Sora', sans-serif;
+        font-family: 'Sora', 'Microsoft YaHei', 'PingFang SC', sans-serif;
         font-size: 0.72rem;
         font-weight: 700;
         letter-spacing: 1.7px;
@@ -798,31 +819,168 @@ def parse_koc_response(text):
   }
 
 
+# ---------------- BILINGUAL UI (EN / 中文) ----------------
+T = {
+    "en": {
+        "brand": "EchoCommerce Studio",
+        "brand_sub": "KOC Automatic Marketing Studio &middot; Coze AI Engine",
+        "systems_online": "All Systems Online",
+        "hero_badge": "Unleash Your Creative Potential",
+        "hero_title": "Fastest &amp; Easiest Way to Generate Viral KOC Content",
+        "hero_lead": (
+            "Paste one product link and Coze AI writes the full PR script, suggests "
+            "high-converting titles, renders 3D product visuals and produces the AI "
+            "commercial video &mdash; automatically, in a single click."
+        ),
+        "lang_label": "Language",
+        "control_center": "Control Center",
+        "system_status": "System Status",
+        "chip_coze": "Coze API: Active",
+        "chip_jimeng": "Jimeng AI Engine: Connected",
+        "pipeline_title": "Agents Pipeline Monitor",
+        "caption": "EchoCommerce Studio v4.0 | Pure Coze Engine",
+        "input_label": "Product link or product text (Taobao / 1688 / TikTok Shop):",
+        "placeholder": "Paste a Taobao link or sharing text here...",
+        "btn_run": "Generate 1-Click Content",
+        "warn_no_input": "Please enter a product link or product information first.",
+        "status_running": (
+            "Coze Workflow is analyzing data, writing the PR script & rendering media"
+            " with Jimeng AI..."
+        ),
+        "success": "Done! All marketing assets are ready.",
+        "results_title": "KOC-Ready Marketing Content",
+        "tab_titles": "Top 3 Hot Titles",
+        "tab_body": "PR Article",
+        "tab_comment": "Comment & CTA",
+        "tab_copy": "1-Click Copy",
+        "badge_titles": "TITLE SUGGESTIONS",
+        "badge_body": "PR BODY CONTENT",
+        "badge_comment": "PINNED COMMENT",
+        "info_no_titles": "No title suggestions yet.",
+        "clean_text_label": "100% clean text (junk & prompts removed):",
+        "visual_title": "3D Visual Asset (Jimeng AI)",
+        "img_caption": "3D product concept image from Coze Jimeng AI",
+        "info_no_image": "No image URL received from Coze yet.",
+        "video_title": "Commercial Video (Jimeng AI Video)",
+        "video_caption": "AI video rendered automatically by Coze.",
+        "info_no_video": "No video_url data from Coze yet.",
+        "err_workflow": "Workflow error: ",
+        "err_api": "API connection error: ",
+        "agents": [
+            ("Selection Agent", "Data Cleansing"),
+            ("Content Agent", "PR Scripting"),
+            ("Visual Guard Agent", "Compliance Check"),
+            ("Jimeng Node", "AI Visual &amp; Video"),
+        ],
+    },
+    "zh": {
+        "brand": "EchoCommerce 智能营销工作台",
+        "brand_sub": "KOC 自动化营销工作室 &middot; Coze AI 引擎",
+        "systems_online": "系统运行正常",
+        "hero_badge": "释放你的创意潜能",
+        "hero_title": "最快、最简单的爆款 KOC 内容生成方式",
+        "hero_lead": (
+            "粘贴一个商品链接，Coze AI 自动撰写完整种草文案、生成高转化标题、渲染 3D "
+            "商品视觉图，并产出 AI 商业视频 &mdash; 一键完成，全程自动化。"
+        ),
+        "lang_label": "语言 / Language",
+        "control_center": "控制中心",
+        "system_status": "系统状态",
+        "chip_coze": "Coze API：已连接",
+        "chip_jimeng": "即梦 AI 引擎：已连接",
+        "pipeline_title": "AI Agent 流水线监控",
+        "caption": "EchoCommerce Studio v4.0 | 纯 Coze 引擎驱动",
+        "input_label": "商品链接或商品文字（淘宝 / 1688 / 抖音小店）：",
+        "placeholder": "在此粘贴淘宝链接或分享文案...",
+        "btn_run": "一键生成营销内容",
+        "warn_no_input": "请先输入商品链接或商品信息。",
+        "status_running": "Coze 工作流正在分析数据、撰写种草文案并使用即梦 AI 渲染素材...",
+        "success": "完成！全部营销素材已就绪。",
+        "results_title": "KOC 级营销内容",
+        "tab_titles": "3 个爆款标题",
+        "tab_body": "种草正文",
+        "tab_comment": "评论与引导",
+        "tab_copy": "一键复制",
+        "badge_titles": "推荐标题",
+        "badge_body": "正文内容",
+        "badge_comment": "置顶评论",
+        "info_no_titles": "暂无推荐标题。",
+        "clean_text_label": "纯净文本（已去除冗余与提示词）：",
+        "visual_title": "3D 视觉素材（即梦 AI）",
+        "img_caption": "由 Coze 即梦 AI 生成的 3D 商品概念图",
+        "info_no_image": "暂未收到 Coze 返回的图片链接。",
+        "video_title": "商业视频（即梦 AI 视频）",
+        "video_caption": "由 Coze 自动渲染的 AI 视频。",
+        "info_no_video": "暂未收到 Coze 返回的视频数据。",
+        "err_workflow": "工作流错误：",
+        "err_api": "接口连接错误：",
+        "agents": [
+            ("选品 Agent", "数据清洗"),
+            ("内容 Agent", "文案撰写"),
+            ("视觉风控 Agent", "合规审查"),
+            ("即梦节点", "AI 视觉与视频"),
+        ],
+    },
+}
+
+
+def lang_pick():
+  """Keeps the chosen language across widget re-runs."""
+  if "lang" not in st.session_state:
+    st.session_state.lang = "en"
+  return st.session_state.lang
+
+
+LANG = lang_pick()
+
+
+def tr(key):
+  return T[LANG][key]
+
+
 # ---------------- SIDEBAR MONITOR ----------------
 with st.sidebar:
   st.markdown(
-      "<div class='side-title'>Control Center</div>",
+      f"<div class='lang-label'>{tr('lang_label')}</div>",
       unsafe_allow_html=True,
   )
-  st.markdown("#### System Status")
+  lang_cols = st.columns(2)
+  for _col, _code in zip(lang_cols, ("en", "zh")):
+    with _col:
+      _active = LANG == _code
+      if st.button(
+          "English" if _code == "en" else "中文",
+          key=f"lang_{_code}",
+          type="primary" if _active else "secondary",
+          use_container_width=True,
+      ):
+        if st.session_state.lang != _code:
+          st.session_state.lang = _code
+          st.rerun()
+
+  st.divider()
   st.markdown(
-      "<div class='status-chip'><span class='dot'></span>Coze API: Active</div>"
-      "<div class='status-chip'><span class='dot'></span>Jimeng AI Engine:"
-      " Connected</div>",
+      f"<div class='side-title'>{tr('control_center')}</div>",
+      unsafe_allow_html=True,
+  )
+  st.markdown(f"#### {tr('system_status')}")
+  st.markdown(
+      f"<div class='status-chip'><span class='dot'></span>{tr('chip_coze')}</div>"
+      f"<div class='status-chip'><span class='dot'></span>{tr('chip_jimeng')}</div>",
       unsafe_allow_html=True,
   )
 
   st.divider()
-  st.markdown("#### Agents Pipeline Monitor")
+  st.markdown(f"#### {tr('pipeline_title')}")
 
   pipeline = [
-      ("icon_selection.png", "Selection Agent", "Data Cleansing"),
-      ("icon_content.png", "Content Agent", "PR Scripting"),
-      ("icon_compliance.png", "Visual Guard Agent", "Compliance Check"),
-      ("icon_jimeng.png", "Jimeng Node", "AI Visual &amp; Video"),
+      ("icon_selection.png",),
+      ("icon_content.png",),
+      ("icon_compliance.png",),
+      ("icon_jimeng.png",),
   ]
   rows = ""
-  for icon_file, name, role in pipeline:
+  for (icon_file,), (name, role) in zip(pipeline, tr("agents")):
     rows += (
         "<div class='pipeline-row'>"
         + asset_img(icon_file)
@@ -832,7 +990,7 @@ with st.sidebar:
   st.markdown(rows, unsafe_allow_html=True)
 
   st.divider()
-  st.caption("EchoCommerce Studio v4.0 | Pure Coze Engine")
+  st.caption(tr("caption"))
 
 
 # ---------------- MAIN SCREEN ----------------
@@ -852,22 +1010,20 @@ st.markdown(
 
     <div class="hero-stage">
       <div class="hero-inner">
-        <div class="hero-badge">Unleash Your Creative Potential</div>
-        <h1 class="hero-title">Fastest &amp; Easiest Way to Generate Viral KOC Content</h1>
-        <p class="hero-lead">Paste one product link and Coze AI writes the full PR script,
-        suggests high-converting titles, renders 3D product visuals and produces the AI
-        commercial video &mdash; automatically, in a single click.</p>
+        <div class="hero-badge">{tr('hero_badge')}</div>
+        <h1 class="hero-title">{tr('hero_title')}</h1>
+        <p class="hero-lead">{tr('hero_lead')}</p>
       </div>
     </div>
 
     <div class="hero-wrap">
       <div class="hero-logo">{brand_avatar}</div>
       <div>
-        <div class="hero-name">EchoCommerce Studio</div>
-        <div class="hero-sub">KOC Automatic Marketing Studio &middot; Coze AI Engine</div>
+        <div class="hero-name">{tr('brand')}</div>
+        <div class="hero-sub">{tr('brand_sub')}</div>
       </div>
       <div class="hero-spacer"></div>
-      <div class="status-pill"><span class="dot"></span>All Systems Online</div>
+      <div class="status-pill"><span class="dot"></span>{tr('systems_online')}</div>
     </div>
     """,
     unsafe_allow_html=True,
@@ -878,28 +1034,24 @@ st.write("")
 col_url, col_btn = st.columns([3.5, 1.2], vertical_alignment="bottom")
 with col_url:
   product_url = st.text_input(
-      f"{icon('ic_bolt', cls='ic-inline')} Product link or product text"
-      " (Taobao / 1688 / TikTok Shop):",
-      placeholder="Paste a Taobao link or sharing text here...",
+      f"{icon('ic_bolt', cls='ic-inline')} {tr('input_label')}",
+      placeholder=tr("placeholder"),
       label_visibility="collapsed",
   )
 with col_btn:
   btn_run = st.button(
-      f"{icon('ic_bolt', cls='ic-inline')} Generate 1-Click Content",
+      f"{icon('ic_bolt', cls='ic-inline')} {tr('btn_run')}",
       type="primary",
   )
 
 if btn_run:
   if not product_url:
-    st.warning("Please enter a product link or product information first.")
+    st.warning(tr("warn_no_input"))
   else:
     progress_bar = st.progress(0)
     status_text = st.empty()
 
-    status_text.text(
-        "Coze Workflow is analyzing data, writing the PR script & rendering"
-        " media with Jimeng AI..."
-    )
+    status_text.text(tr("status_running"))
     progress_bar.progress(40)
 
     try:
@@ -952,7 +1104,7 @@ if btn_run:
         status_text.empty()
         progress_bar.empty()
 
-        st.success("Done! All marketing assets are ready.")
+        st.success(tr("success"))
 
         # ---------------- KHU VỰC HIỂN THỊ KẾT QUẢ ----------------
         col_left, col_right = st.columns([1.2, 1])
@@ -963,20 +1115,20 @@ if btn_run:
           st.markdown(
               "<div class='sec-head'>"
               + icon("ic_doc", cls="ic-inline")
-              + "<span class='sec-title'>KOC-Ready Marketing Content</span></div>",
+              + f"<span class='sec-title'>{tr('results_title')}</span></div>",
               unsafe_allow_html=True,
           )
 
           tab1, tab2, tab3, tab4 = st.tabs([
-              "Top 3 Hot Titles",
-              "PR Article",
-              "Comment & CTA",
-              "1-Click Copy",
+              tr("tab_titles"),
+              tr("tab_body"),
+              tr("tab_comment"),
+              tr("tab_copy"),
           ])
 
           with tab1:
             st.markdown(
-                "<div class='badge-status'>TITLE SUGGESTIONS</div>",
+                f"<div class='badge-status'>{tr('badge_titles')}</div>",
                 unsafe_allow_html=True,
             )
             if parsed["titles"]:
@@ -987,50 +1139,29 @@ if btn_run:
                       unsafe_allow_html=True,
                   )
             else:
-              st.info("No title suggestions yet.")
+              st.info(tr("info_no_titles"))
 
           with tab2:
             st.markdown(
-                "<div class='badge-status'>PR BODY CONTENT</div>",
+                f"<div class='badge-status'>{tr('badge_body')}</div>",
                 unsafe_allow_html=True,
             )
             st.write(parsed["body"])
 
           with tab3:
             st.markdown(
-                "<div class='badge-status'>PINNED COMMENT</div>",
+                f"<div class='badge-status'>{tr('badge_comment')}</div>",
                 unsafe_allow_html=True,
             )
             st.write(parsed["comment"])
 
           with tab4:
             st.text_area(
-                "100% clean text (junk & prompts removed):",
+                tr("clean_text_label"),
                 value=parsed["full_clean"],
                 height=350,
             )
 
-          st.markdown("---")
-          st.markdown(
-              "<div class='sub-head'>"
-              + icon("ic_bot", cls="ic-inline")
-              + "CS Bot Agent Script (Auto-Reply to Clients)</div>",
-              unsafe_allow_html=True,
-          )
-          cs_script = data.get(
-              "cs_script", "Auto-reply mode for comments is enabled."
-          )
-          with st.expander(
-              "View the bot script that auto-replies to customers",
-              expanded=False,
-          ):
-            st.write(cs_script)
-
-          st.button(
-              f"{icon('ic_bot', cls='ic-inline')} Auto-Publish Post &amp; Enable"
-              " Live Comment Bot",
-              type="primary",
-          )
           st.markdown("</div>", unsafe_allow_html=True)
 
         # CỘT PHẢI: ASSET VISUAL (HIỂN THỊ TRỰC TIẾP TỪ COZE)
@@ -1039,48 +1170,39 @@ if btn_run:
           st.markdown(
               "<div class='sec-head'>"
               + icon("ic_image", cls="ic-inline")
-              + "<span class='sec-title'>3D Visual Asset (Jimeng AI)</span></div>",
+              + f"<span class='sec-title'>{tr('visual_title')}</span></div>",
               unsafe_allow_html=True,
           )
 
           if image_url:
             st.image(
                 image_url,
-                caption="3D product concept image from Coze Jimeng AI",
+                caption=tr("img_caption"),
                 use_container_width=True,
             )
           else:
-            st.info(
-                "No image URL received from Coze yet. Check the JSON log below."
-            )
+            st.info(tr("info_no_image"))
 
           st.markdown("---")
           st.markdown(
               "<div class='sub-head'>"
               + icon("ic_video", cls="ic-inline")
-              + "Commercial Video (Jimeng AI Video)</div>",
+              + f"{tr('video_title')}</div>",
               unsafe_allow_html=True,
           )
 
           if video_url:
             st.video(video_url)
-            st.caption("AI video rendered automatically by Coze.")
+            st.caption(tr("video_caption"))
           else:
-            st.info("No video_url data from Coze yet.")
+            st.info(tr("info_no_video"))
 
           st.markdown("</div>", unsafe_allow_html=True)
 
-        # BÁO CÁO GIÁM KHẢO
-        st.divider()
-        with st.expander(
-            "[Technical Report] Detailed JSON log from the Coze Workflow"
-        ):
-          st.json(data)
-
       else:
-        st.error(f"Workflow error: {result.get('msg')}")
+        st.error(f"{tr('err_workflow')}{result.get('msg')}")
     except Exception as e:
-      st.error(f"API connection error: {e}")
+      st.error(f"{tr('err_api')}{e}")
 
 
 # ---------------- FOOTER DECOR ----------------
